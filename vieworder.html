@@ -1,0 +1,46 @@
+		
+	
+		<h1>Angular Framework</h1>
+		<h5>All CRUD operations available</h5>
+
+		<p>User: {{firstName}}</p>
+		<p>Order number: {{whichItem}}</p>
+
+
+		<br>
+		<br>
+
+
+		<table class='table table-striped'>
+
+			<th>User</th><th>Order</th><th>Items</th>
+			<tr ng-repeat="x in order">
+			  <td>
+			    {{ x.user }}
+			  </td>
+			  <td>
+			    {{ x.ordername }}
+			  </td>
+			  <td>
+			    {{ x.items }}
+			  </td>
+			</tr>
+		</table>
+
+		<a class="btn btn-primary viewitem" href="#/orders">Go back</a>
+
+<!-- 		 <form novalidate>
+		    First Name:<br>
+		    <input type="text" ng-model="firstName"><br>
+		    Last Name:<br>
+		    <input type="text" ng-model="lastName">
+		    <br><br>
+		    <button ng-click="neworder()">New Order</button>
+		  </form> -->
+
+		<br>
+		<br>
+
+
+
+

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
 <head>
 <meta charset="UTF-8">
 <title>Javascript Framework with AJAX: All CRUD operations available</title>
@@ -18,49 +18,23 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 <!-- Angular -->
-<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 
+<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script src= "angular-route.min.js"></script>
+
+
+<script src="controllers.js"></script>
 <script src="app.js"></script>
+
 
 </head>
 
 
-<body>
-	<div class="container" ng-app="myApp" ng-controller="myCtrl">
-  
-		<h1>Angular Framework</h1>
-		<h5>All CRUD operations available</h5>
+<body >
+	<div class="container" ng-view>
+		
 
-
-
-		<table class='table table-striped'>
-
-			<th>User</th><th>Order</th><th>Items</th><th>View</th><th>Edit</th><th>Delete</th>
-
-			<tr ng-repeat="x in mytable">
-			  <td>
-			    {{ x.user }}
-			  </td>
-			  <td>
-			    {{ x.ordername }}
-			  </td>
-			  <td>
-			    {{ x.items }}
-			  </td>
-			   <td>
-			    <button>View</button>
-			  </td>
-			  <td>
-			    <button>View</button>
-			  </td>
-			  	<td>
-			    <button>View</button>
-			  </td>
-			</tr>
-		</table>
-
-
-	</div>
+    </div>
 </body>
 
 <footer>

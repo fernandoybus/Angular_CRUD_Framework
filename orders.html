@@ -1,0 +1,48 @@
+		
+	
+		<h1>Angular Framework</h1>
+		<h5>All CRUD operations available</h5>
+
+		<p>{{firstName}}</p>
+
+		<table class='table table-striped'>
+
+			<th>User</th><th>Order</th><th>Items</th><th>View</th><th>Edit</th><th>Delete</th>
+
+			<tr ng-repeat="x in mytable">
+			  <td>
+			    {{ x.user }}
+			  </td>
+			  <td>
+			    {{ x.ordername }}
+			  </td>
+			  <td>
+			    {{ x.items }}
+			  </td>
+			   <td>
+			   <!--  <button ng-click='vieworder(x.id)' type="button" class="btn btn-primary viewitem" id="{{x.id}}">View</button> -->
+			       <a class="btn btn-primary viewitem" href="#/view/{{x.id}}">View</a>
+			  </td>
+			  <td>
+			    <!-- <button ng-click='editorder(x.id)' type="button" class="btn btn-warning edititem" id="{{x.id}}">Edit</button> -->
+			    <a class="btn btn-warning viewitem" href="#/edit/{{x.id}}">Edit</a>
+			  </td>
+			  	<td>
+			    <button ng-click='deleteorder(x.id)' type="button" class="btn btn-danger deleteitem" id="{{x.id}}">Delete</button>
+			  </td>
+			</tr>
+		</table>
+
+		<br>
+		<br>
+
+		<a class="btn btn-primary createneworder" href="#/neworder">Create New Order</a>
+		
+
+
+		<br>
+		<br>
+
+
+
+

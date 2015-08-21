@@ -95,12 +95,12 @@ if ($stmt = $mysqli->prepare("SELECT id FROM users WHERE username=?")) {
 $mysqli->close();
 
 
-              //echo $table;
-              if ($found == ""){
-                 echo '{"response":"0", "table":"0"}';
-              }else{
-                 echo $table2;
-              }
+//echo $table;
+if ($found == ""){
+   echo '{"response":"0", "table":"0"}';
+}else{
+   echo $table2;
+}
 
 
 // $con = mysql_connect($server, $username, $password) or die ("Could not connect: " . mysql_error());

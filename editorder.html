@@ -1,0 +1,47 @@
+		
+	
+		<h1>Angular Framework</h1>
+		<h5>All CRUD operations available</h5>
+
+
+		
+
+		<p>User: {{firstName}}</p>
+		<p>Order number: {{whichItem}}</p>
+		
+<!--                 <div ng-repeat="choice in choices">
+                    <h2>{{choice.id}}</h2>
+                </div> -->
+
+
+          <form novalidate class="form_new_order">
+		    Order:<br>
+		    <input type="text" ng-model="user" value="{{firstName}}" hidden>
+		    <input type="text" ng-model="number" value="{{whichItem}}" hidden>
+		    <input type="text" ng-model="order" value="{{ordername}}"><br>
+		    <br>
+		    <div class="form-group" data-ng-repeat="choice in choices">
+			  <label for="choice" ng-show="showChoiceLabel(choice)">Choices</label>
+			  
+			  <input type="text" ng-model="choice.id" name="" placeholder="Add item">
+			  <button ng-show="showAddChoice(choice)" ng-click="addNewChoice()">Add another item</button>
+			</div>
+			<br>
+		    <button class="btn btn-primary viewitem" ng-click="savechanges()">Save Changes</button>
+		  </form>
+
+		<br>
+		<br>
+
+
+
+		<a class="btn btn-primary viewitem" href="#/orders">Go back</a>
+
+
+
+		<br>
+		<br>
+
+
+
+
