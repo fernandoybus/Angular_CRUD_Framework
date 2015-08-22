@@ -13,6 +13,7 @@ $user= $data["user"];
 $id= $data["id"];
 $order= $data["order"];
 $items= $data["item"];
+$image= $data["image"];
 
 
 
@@ -147,7 +148,7 @@ mysql_select_db($database, $con);
 
 
 
-         $sql = "UPDATE orders SET ordername='$order', items='$items' WHERE id='$id' AND user = '$user'";
+         $sql = "UPDATE orders SET ordername='$order', items='$items', image='$image' WHERE id='$id' AND user = '$user'";
          //echo $sql;
          $result = mysql_query($sql) or die ("Query error: " . mysql_error());
          //echo $result;

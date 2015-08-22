@@ -105,10 +105,88 @@ orderControllers.controller('ViewController', ['$scope', '$http', '$routeParams'
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-orderControllers.controller('NewOrderController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
+
+//IMAGE FUNCTIONS
+
+orderControllers.directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+            
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
+}]);
+
+orderControllers.service('fileUpload', ['$http', function ($http) {
+    this.uploadFileToUrl = function(file, uploadUrl){
+        var fd = new FormData();
+        fd.append('file', file);
+        $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        })
+        .success(function(html){
+            console.log(html);
+            console.log("success");
+            //console.log(uploadUrl);
+            console.log(fd);
+        })
+        .error(function(){
+            console.log("error");
+        });
+    }
+}]);
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+orderControllers.controller('NewOrderController', ['$scope', '$http', '$routeParams', 'fileUpload', function($scope, $http, $routeParams, fileUpload) {
     $scope.firstName= "fernandoybus";
 
+
+
+
     $scope.neworder = function() {
+
+        //handling image
+        var file = $scope.myFile;
+        console.log('file is ' + file.name);
+        $scope.image = file.name;
+        console.dir(file);
+        var uploadUrl = "imageupload.php";
+        //fileUpload.uploadFileToUrl(file, uploadUrl);
+        var fd = new FormData();
+        fd.append('file', file);
+        $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        })
+        .success(function(html){
+            $scope.image = html;
+            console.log(html);
+            console.log("success");
+        })
+        .error(function(){
+            console.log("error");
+        });
+
+
+
+
+
+
         console.log("posting data....");
         html = $scope.choices;
         var items = ""
@@ -133,8 +211,9 @@ orderControllers.controller('NewOrderController', ['$scope', '$http', '$routePar
         console.log('items');
         console.log(items);
          var dataObject = {
-          order : $scope.order
-          ,item  : items
+          order : $scope.order,
+          item  : items,
+          image : $scope.image
        };
        console.log(dataObject);
        
@@ -191,6 +270,10 @@ orderControllers.controller('NewOrderController', ['$scope', '$http', '$routePar
 
 }]);
 
+
+
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -199,6 +282,7 @@ orderControllers.controller('NewOrderController', ['$scope', '$http', '$routePar
 orderControllers.controller('EditController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
     $scope.firstName= "fernandoybus";
     $scope.whichItem = $routeParams.itemId;
+
 
 
     var dataObj = {
@@ -274,6 +358,34 @@ orderControllers.controller('EditController', ['$scope', '$http', '$routeParams'
 
     $scope.savechanges = function() {
         console.log("savind data....");
+
+
+
+        //handling image
+        var file = $scope.myFile;
+        console.log('file is ' + file.name);
+        $scope.image = file.name;
+        console.dir(file);
+        var uploadUrl = "imageupload.php";
+        //fileUpload.uploadFileToUrl(file, uploadUrl);
+        var fd = new FormData();
+        fd.append('file', file);
+        $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        })
+        .success(function(html){
+            $scope.image = html;
+            console.log(html);
+            console.log("success");
+        })
+        .error(function(){
+            console.log("error");
+        });
+
+
+
+
         html = $scope.choices;
         var items = ""
         for(var i=0;i<html.length;i++){
@@ -300,7 +412,8 @@ orderControllers.controller('EditController', ['$scope', '$http', '$routeParams'
           id :  $scope.whichItem, 
           user :  $scope.firstName, 
           order : $scope.ordername,
-          item  : items
+          item  : items,
+          image : $scope.image
        };
        console.log(dataObject);
        
@@ -317,9 +430,11 @@ orderControllers.controller('EditController', ['$scope', '$http', '$routeParams'
         });
     };
 
-
-
-
 }]);
+
+
+
+
+
 
 

@@ -17,6 +17,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 $order= $data["order"];
 $items= $data["item"];
+$image= $data["image"];
 
 
 
@@ -137,7 +138,7 @@ mysql_select_db($database, $con);
 
 	$con = mysql_connect($server, $username, $password) or die ("Could not connect: " . mysql_error());
 	mysql_select_db($database, $con);
-         $sql = "INSERT INTO orders (user, ordername, items) VALUES('fernandoybus', '$order', '$items')";
+         $sql = "INSERT INTO orders (user, ordername, items, image) VALUES('fernandoybus', '$order', '$items', '$image')";
 		 //echo $sql;
          $result = mysql_query($sql) or die ("Query error: " . mysql_error());
          //echo $result;
