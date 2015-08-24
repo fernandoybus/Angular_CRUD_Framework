@@ -2,6 +2,10 @@ var myApp = angular.module('myApp', ['ngRoute', 'orderControllers']);
 
 myApp.config(['$routeProvider', function($routeProvider){
 	$routeProvider.
+	when('/login',{
+		templateUrl: 'login.html',
+		controller: 'LoginController'
+	}).
 	when('/orders',{
 		templateUrl: 'orders.html',
 		controller: 'ListController'
@@ -22,7 +26,11 @@ myApp.config(['$routeProvider', function($routeProvider){
 		templateUrl: 'deleteorder.html',
 		controller: 'DeleteController'
 	}).
+	when('/register',{
+		templateUrl: 'register.html',
+		controller: 'RegisterController'
+	}).
 	otherwise({
-		redirectTo: '/orders'
+		redirectTo: '/login'
 	});
 }]);

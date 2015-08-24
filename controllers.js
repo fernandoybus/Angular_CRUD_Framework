@@ -8,7 +8,43 @@ orderControllers.controller('ListController', ['$scope', '$http', function($scop
     $scope.firstName= "fernandoybus";
     $scope.lastName= "Azevedo";
 
+    
 
+    $scope.changeRoute = function(url, forceReload) {
+        $scope = $scope || angular.element(document).scope();
+        if(forceReload || $scope.$$phase) { // that's right TWO dollar signs: $$phase
+            window.location = url;
+        } else {
+            $location.path(url);
+            $scope.$apply();
+        }
+    };
+
+    // READ COOKIE
+    var name = "angular" + "=";
+    var ca = document.cookie.split(';');
+    var user;
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) user= c.substring(name.length, c.length);
+    }
+   
+    if (user != "") {
+        console.log("Welcome again " + user);
+    } else {
+    }
+
+    if (!user){
+
+
+        console.log("no login");
+
+
+        $scope.changeRoute('#/login');
+
+
+    }
     var dataObj = {user:"fernandoybus"};
 
     var res = $http.post("table.php", {user: 'fernandoybus'});
@@ -34,6 +70,8 @@ orderControllers.controller('ListController', ['$scope', '$http', function($scop
 
     //     });
     // };
+
+
 
 
 
@@ -268,6 +306,10 @@ orderControllers.controller('NewOrderController', ['$scope', '$http', '$routePar
         });
     };
 
+
+
+
+
 }]);
 
 
@@ -434,7 +476,129 @@ orderControllers.controller('EditController', ['$scope', '$http', '$routeParams'
 
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+orderControllers.controller('LoginController', ['$scope', '$http', '$location', function($scope, $http, $compile, $location) {
+    $scope.username= "";
+    $scope.password= "";
 
 
+
+    $scope.dologin = function() {
+        console.log("logging in....");
+         var dataObject = {
+          user : $scope.username
+          ,password  : $scope.password
+       };
+       console.log(dataObject);
+       
+        $http.post('dologin.php', JSON.stringify(dataObject)).success(function(html){
+        /*success callback*/
+        console.log(html);
+        if (html ==  1){
+        // redirect to orders if logged in
+        //$location.path("/orders");
+        var cname = "angular";
+        var cvalue = "angular";
+        var exdays = 10;
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+d.toUTCString();
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+        $scope.changeRoute('#/orders');
+        }
+        else{
+            $scope.message ="Could not login";
+            console.log($scope.message);
+        }
+
+        });
+    };
+
+    $scope.changeRoute = function(url, forceReload) {
+        $scope = $scope || angular.element(document).scope();
+        if(forceReload || $scope.$$phase) { // that's right TWO dollar signs: $$phase
+            window.location = url;
+        } else {
+            $location.path(url);
+            $scope.$apply();
+        }
+    };
+
+    $scope.register = function() {
+        console.log("change to registration....");
+        $scope.changeRoute('#/register');
+
+    };
+
+
+}]);
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+orderControllers.controller('RegisterController', ['$scope', '$http', '$location', function($scope, $http, $compile, $location) {
+    $scope.username= "";
+    $scope.password= "";
+
+
+
+    $scope.doregister = function() {
+        console.log("registering new user....");
+         var dataObject = {
+          newusername : $scope.newusername
+          ,newpassword  : $scope.newpassword,
+          newemail :$scope.newemail
+       };
+       console.log(dataObject);
+       
+        $http.post('doregister.php', JSON.stringify(dataObject)).success(function(html){
+        /*success callback*/
+        console.log(html);
+        if (html ==  1){
+        // redirect to orders if logged in
+        //$location.path("/orders");
+        var cname = "angular";
+        var cvalue = "angular";
+        var exdays = 10;
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+d.toUTCString();
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+        $scope.changeRoute('#/orders');
+        }
+        else{
+            $scope.message ="Could not create new user. Maybe email already exists";
+            console.log($scope.message);
+        }
+
+        });
+    };
+
+    $scope.changeRoute = function(url, forceReload) {
+        $scope = $scope || angular.element(document).scope();
+        if(forceReload || $scope.$$phase) { // that's right TWO dollar signs: $$phase
+            window.location = url;
+        } else {
+            $location.path(url);
+            $scope.$apply();
+        }
+    };
+
+    $scope.login = function() {
+        console.log("back to login....");
+        $scope.changeRoute('#/login');
+
+    };
+
+
+
+
+}]);
 
 
