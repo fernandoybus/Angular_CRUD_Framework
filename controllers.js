@@ -50,8 +50,8 @@ orderControllers.controller('ListController', ['$scope', '$http', function($scop
     var res = $http.post("table.php", {user: 'fernandoybus'});
 
     res.success(function(response) {
-    	console.log(response);
-    	$scope.mytable = response;
+        console.log(response);
+        $scope.mytable = response;
     });
 
     // $scope.neworder = function() {
@@ -399,11 +399,13 @@ orderControllers.controller('EditController', ['$scope', '$http', '$routeParams'
     };
 
     $scope.savechanges = function() {
-        console.log("savind data....");
+        console.log("saving data....");
 
 
 
         //handling image
+        if ($scope.myFile){
+            console.log("There is an image");
         var file = $scope.myFile;
         console.log('file is ' + file.name);
         $scope.image = file.name;
@@ -425,7 +427,9 @@ orderControllers.controller('EditController', ['$scope', '$http', '$routeParams'
             console.log("error");
         });
 
-
+        }else{
+            console.log("no image");
+        }
 
 
         html = $scope.choices;
@@ -533,6 +537,13 @@ orderControllers.controller('LoginController', ['$scope', '$http', '$location', 
 
     };
 
+    $scope.recover = function() {
+        console.log("Recover password....");
+        $scope.changeRoute('#/recover_password');
+
+    };
+
+
 
 }]);
 
@@ -596,9 +607,56 @@ orderControllers.controller('RegisterController', ['$scope', '$http', '$location
 
     };
 
+    $scope.register = function() {
+        console.log("back to registration....");
+        $scope.changeRoute('#/register');
+
+    };
+
+    $scope.recover = function() {
+        console.log("Recover password....");
+        $scope.changeRoute('#/recover_password');
+
+    };
+
+}]);
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+orderControllers.controller('RecoverController', ['$scope', '$http', '$location', function($scope, $http, $compile, $location) {
+    $scope.username= "";
+    $scope.password= "";
+
+
+
+    $scope.dorecover = function() {
+        console.log("recover password....");
+         var dataObject = {
+                emailrecover  : $scope.emailrecover
+       };
+       console.log(dataObject);
+       
+        $http.post('recoverpassword.php', JSON.stringify(dataObject)).success(function(html){
+        /*success callback*/
+        console.log(html);
+        if (html ==  "1"){
+            $scope.message ="Email sent.";
+            console.log($scope.message);
+        }
+        else{
+            $scope.message ="Could not verify your email";
+            console.log($scope.message);
+        }
+
+        });
+    };
+
+
 
 
 
 }]);
-
 
