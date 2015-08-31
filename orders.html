@@ -20,7 +20,7 @@
 			    {{ x.items }}
 			  </td>
 			  <td>
-			    <div ng-if="x.image"><img ng-src="/home/fernando/angular/fileUpload/{{ x.image }}" style="max-width:60px;max-height=60px;"/></div>
+			    <div ng-if="x.image"><img ng-src="/angular/fileUpload/{{ x.image }}" style="max-width:60px;max-height=60px;"/></div>
 			  </td>
 			   <td>
 			   <!--  <button ng-click='vieworder(x.id)' type="button" class="btn btn-primary viewitem" id="{{x.id}}">View</button> -->
@@ -37,15 +37,15 @@
 		</table>
 
 		<br>
-		<br>
-
 		<a class="btn btn-primary createneworder" href="#/neworder">Create New Order</a>
 		
-
-
 		<br>
 		<br>
 
+		<button ng-click='logout()' type="button" class="btn btn-danger deleteitem">Logout</button>
+
+		<br>
+		<br>
 
 
 

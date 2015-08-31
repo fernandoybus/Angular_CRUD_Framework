@@ -67,6 +67,9 @@ mysql_select_db($database, $con);
             //echo $found;
  
               
+
+         }
+
             if ($found <> ""){
 
 
@@ -74,7 +77,7 @@ mysql_select_db($database, $con);
 
             }
     
-         }
+
          if ($found == ""){
           	echo '0';
           }

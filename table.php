@@ -3,16 +3,7 @@
 include 'credentials.php';
 
 
-if($_POST)
-{
-	//$user=sanitize($_POST['username']);
 
-  $user=($_POST['user']);
-
-
-
-
-}
 
 
 $postdata = file_get_contents("php://input");
@@ -20,12 +11,6 @@ $request = json_decode($postdata);
 $user = $request->user;
 
 
-// $user = 'fernandoybus';
-// $hash ='$2a$08$Cf1213eParGlBJoOM0F6a.Nn5Jf40xwp3cx4nVmbrfIojNgKmGYza';
-//echo $user; 
-
-
-//$user = 'fernandoybus';
 
 //echo $user;
 
@@ -111,7 +96,7 @@ mysql_select_db($database, $con);
 	$con = mysql_connect($server, $username, $password) or die ("Could not connect: " . mysql_error());
 	mysql_select_db($database, $con);
 
-        $sql = "SELECT username FROM users where cookie LIKE '" .  $user . "'";
+        $sql = "SELECT username FROM users where username LIKE '" .  $user . "'";
         $result = mysql_query($sql) or die ("Query error: " . mysql_error());
          while($row = mysql_fetch_array($result)) {
               
@@ -141,7 +126,7 @@ mysql_select_db($database, $con);
 
          //echo $table;
          if ($found == ""){
-          	echo '{"response":"0", "table":"0"}';
+          	echo '0';
           }else{
           	echo $table2;
           }

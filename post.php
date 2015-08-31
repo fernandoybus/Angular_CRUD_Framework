@@ -4,17 +4,14 @@ include 'credentials.php';
 
 
 
-// $usernameorder="";
-// $hashnameorder="";
-// $order="order1";
-// $items="item1";
+
 
 $data = json_decode(file_get_contents('php://input'), true);
 //print_r($data);
 // echo $data["order"];
 // echo $data["item"];
 
-
+$usernameorder = $data["user"];
 $order= $data["order"];
 $items= $data["item"];
 $image= $data["image"];
@@ -118,16 +115,10 @@ if($_POST)
 //////////////////////////////////////////////////////
 
 
-// $usernameorder="t";
-// $order="t";
-// $items="t";
-// $image="t";
-
-
-//echo $order;
-
-
-
+//$usernameorder ="usertest";
+//$order ="usertest";
+//$items ="item1,item2,item3";
+//$image ="usertest";
 
    ///////////////////////////////////
 
@@ -138,14 +129,23 @@ mysql_select_db($database, $con);
 
 	$con = mysql_connect($server, $username, $password) or die ("Could not connect: " . mysql_error());
 	mysql_select_db($database, $con);
-         $sql = "INSERT INTO orders (user, ordername, items, image) VALUES('fernandoybus', '$order', '$items', '$image')";
+         $sql = "INSERT INTO orders (user, ordername, items, image) VALUES('$usernameorder' , '$order', '$items', '$image')";
 		 //echo $sql;
          $result = mysql_query($sql) or die ("Query error: " . mysql_error());
          //echo $result;
 
 
+        //INSERTING ON ITEMS TABLE
+        $user_id = mysql_insert_id( $con );  
+        $arr = explode(",", $items);
 
-         $sql = "SELECT * FROM orders where user LIKE '" .  'fernandoybus' . "'";
+        foreach ($arr as &$value) {
+                $sql = "INSERT INTO items (orderno, item) VALUES('$user_id' , '$value')";
+                $result = mysql_query($sql) or die ("Query error: " . mysql_error());
+        }
+        
+
+         $sql = "SELECT * FROM orders where user LIKE '" .  $usernameorder . "'";
          //echo $sql;
          $result = mysql_query($sql) or die ("Query error: " . mysql_error());
          while($row = mysql_fetch_array($result)) {

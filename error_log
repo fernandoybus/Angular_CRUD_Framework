@@ -1,0 +1,2 @@
+[21-Aug-2015 13:45:51 America/Chicago] PHP Fatal error:  Call to undefined method mysqli_stmt::get_result() in /home/deepl541/public_html/angular/table.php on line 53
+[25-Aug-2015 10:00:08 America/Chicago] PHP Parse error:  syntax error, unexpected 'Could' (T_STRING), expecting ']' in /home/deepl541/public_html/angular/recoverpassword.php on line 22

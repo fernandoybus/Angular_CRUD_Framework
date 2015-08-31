@@ -31,7 +31,7 @@ myApp.config(['$routeProvider', function($routeProvider){
 		controller: 'RegisterController'
 	}).
 	when('/recover_password',{
-		templateUrl: 'recover_passworld.html',
+		templateUrl: 'recover_password.html',
 		controller: 'RecoverController'
 	}).
 	otherwise({

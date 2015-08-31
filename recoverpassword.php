@@ -7,13 +7,11 @@ include 'credentials.php';
 $email="";
 
 
-if($_POST['emailrecover'])
-{
-    $email=($_POST['emailrecover']);
+$data = json_decode(file_get_contents('php://input'), true);
+
+$email= $data["emailrecover"];
 
 
-
-}
 
 
 //echo $email;
@@ -71,7 +69,7 @@ mysql_select_db($database, $con);
 
                         $email = str_replace("%40","@",$email);
 
-                    echo $email;
+                    //echo $email;
                     
 
             
